@@ -1,0 +1,19 @@
+#!/bin/sh
+# by tlehman
+#
+# Read in lines, output lines with single quotes around them
+#
+# Example use:
+# 
+#   $ <command>
+#   output of command
+#   the output has spaces
+#   spaces are annoying
+#
+#   $ <command> | wrap
+#   'output of command'
+#   'the output has spaces'
+#   'spaces are annoying'
+#
+
+sed -e "s/\(.*\)/'\1'/"

@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'yaml'
+
+# quickly access sql databases
+# (only works for rails apps right now)
+# assumes dev environment, and mysql, will generalize later
+
+dbfile = 'config/database.yml'
+if File.exist?(dbfile)
+  dbdata = YAML::load(File.open(dbfile, 'r').read)['development']
+  dbpasswd = (dbdata['password'] == nil) ? "" : " -p#{dbdata['password']} "
+  argcmd = ARGV.join(' ')
+  dbcmd = "mysql -D#{dbdata['database']} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
+
+  system(dbcmd) unless ( argcmd =~ /(drop|delete)/i )
+else
+  puts "Not in rails app"
+end
+

@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# tlehman, convert hex strings to ascii
+
+def hexadecimal?(str)
+  str =~ /^(0x)?[a-fA-F0-9]+$/
+end
+
+def oh_ex_form?(str)
+  str =~ /^0x/
+end
+
+def chop_oh_ex(str)
+  str =~ /^0x([a-fA-F0-9]+)/
+  return $1
+end
+
+def hex_to_chrs(hexstr)
+  bytes = hexstr.split(/(..)/).reject(&:empty?)
+  bytes.map { |b| b.to_i(16).chr }.join
+end
+
+def usage
+  puts <<-EOF
+Usage:
+  > hexchr 68656c6c6f20776f726c640a
+  hello world
+EOF
+end
+
+input = ARGV.join
+
+if hexadecimal?(input)
+  hexvalue = oh_ex_form?(input) ? chop_oh_ex(input) : input
+  puts hex_to_chrs(hexvalue)
+else
+  usage
+end

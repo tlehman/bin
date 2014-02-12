@@ -1,0 +1,5 @@
+#!/bin/sh
+# by tlehman
+# lock a computer running Mac OS X from the command line
+
+/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend

@@ -1,0 +1,4 @@
+#!/bin/sh
+# dbtt: Database Time Traveler
+
+ls db/migrate/ | grep --colour -C 8 `bundle exec rake db:version | awk -F: '{print $2}'`

@@ -1,0 +1,13 @@
+#!/bin/bash
+# by tlehman
+#
+# to open things in an emacs server from the command line
+
+if [[ $* == "" ]]; then
+  read input
+else
+  input=$*
+fi
+
+emacsclient $input &> /dev/null &
+

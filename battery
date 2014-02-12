@@ -1,0 +1,11 @@
+#!/bin/bash
+# works on Darwn Kernel Version 13.0.0
+# by tlehman at 1390333732
+
+CAPACITY_MAX=$(ioreg -l | grep MaxCapacity | awk -F= '{print $2}')
+CAPACITY_CUR=$(ioreg -l | grep CurrentCapacity | awk -F= '{print $2}')
+
+BATTERY_PERCENTAGE=$(echo "100 * $CAPACITY_CUR/$CAPACITY_MAX" | bc -l)
+
+printf "%.2f%%\n" $BATTERY_PERCENTAGE
+

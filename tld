@@ -1,0 +1,4 @@
+#!/bin/bash
+# by tlehman, lookup country-specific TLD
+
+grep "^.$1" ~/BTSync/TLD_countries.txt

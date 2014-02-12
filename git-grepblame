@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# git-grepblame
+#
+# by tlehman
+#
+# When you want to do a 'git grep ' and then do 'git blame ' on those specific lines, 
+# you used to have to git-grep, slice out the filenames with awk, then loop over them, 
+# then git-blame, grepping again for the search term.
+#
+# For example:
+#
+#   git grep state_machine
+#
+# Then you'd have to pipe it into awk to extract the filenames:
+#
+#   git grep state_machine | awk -F: '{print $1}'
+#
+# Then, looping over those files, you grep the search term again:
+#
+#   git grep state_machine | awk -F: '{print $1}' \
+#                          | for f in $(cat -); do \
+#                              git blame $f | grep state_machine; \
+#                            done
+# 
+# No one should have to type all that just to do a keyword blame, so this script was born
+
+git grep $1 | awk -F: '{print $1}' | sort | uniq \
+            | for filename in $(cat -); do \
+                git blame $filename | grep --color $1; \
+              done
