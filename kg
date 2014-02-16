@@ -1,0 +1,18 @@
+#!/bin/bash
+# kg (complete graph)
+# the 'k' was used because K_n is the notation in graph theory, deal with it.
+
+n=$1
+
+echo "graph k$n {"
+
+for i in $(seq $n); do
+  for j in $(seq $i); do
+    if [[ $i -ne $j ]]; then
+      echo "  $i -- $j";
+    fi
+  done
+done
+
+echo "}"
+
