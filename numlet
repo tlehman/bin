@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# numlet gives you the number of the letter: a -> 1, b -> 2, ..., z -> 26
+
+usage if ARGV.count == 0
+letter = ARGV.first
+number = (letter.downcase.ord - 'a'.ord) + 1
+
+puts number
+
+def usage
+  puts "Usage: "
+  puts "  numlet Z"
+end
