@@ -1,0 +1,5 @@
+#!/usr/bin/env osascript
+
+on run argv
+  display notification argv
+end
