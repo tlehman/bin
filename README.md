@@ -73,7 +73,7 @@ Quick histogram display, command line only (thanks to @bitly)
 
 
 ### kg
-Generate a complete graph in GraphViz form: 
+Generate a complete graph in GraphViz format: 
 
 ```
 $ kg 5
@@ -91,6 +91,7 @@ graph k5 {
 }
 ```
 
+![K5](http://i.imgur.com/oc8JNeA.png)
 
 ### maclock
 Locks a machine running Mac OS X
