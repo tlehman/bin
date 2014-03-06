@@ -1,0 +1,14 @@
+#!/bin/bash
+# by tlehman at 1392748548
+#
+
+seconds=$(echo $1 | bc)  # compute expressions like '60*17'
+command=$2
+
+for sec in $(seq $seconds -1 1)
+do
+  echo $sec
+  /bin/sleep 1
+done
+
+eval $command
