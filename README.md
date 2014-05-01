@@ -29,6 +29,10 @@ After [analyzing my bash history](http://tobilehman.com/blog/2013/06/18/analyzin
 ### git-grepblame
 Git grep and git blame, together at last.
 
+### git-bq
+Git branch quick
+
+
 ### hc
 HTTP Status Code lookup:
 
