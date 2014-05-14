@@ -25,7 +25,9 @@
 # 
 # No one should have to type all that just to do a keyword blame, so this script was born
 
-git grep $1 | awk -F: '{print $1}' | sort | uniq \
+git grep $1 | awk -F: '{print $1}'  \
+            | xargs file | grep text | awk -F: '{print $1}' \
+            | sort | uniq \
             | for filename in $(cat -); do \
                 git blame $filename | grep --color $1; \
               done
