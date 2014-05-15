@@ -99,3 +99,6 @@ graph k5 {
 
 ### maclock
 Locks a machine running Mac OS X
+
+### transpose
+Transpose a file delimited by whitespace
