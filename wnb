@@ -1,0 +1,123 @@
+#! /usr/bin/env python
+#    Copyright 2012 Paul Munday
+#    PO Box 28228, Portland, OR, USA 97228
+#    paul at gatheringstorms.org
+
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    or <http://www.gatheringstorms.org/code/gpl.txt>.
+
+
+import os.path
+import sys
+import urllib
+import StringIO
+import xml.etree.ElementTree as ET
+import time
+
+appID = "8D8D196B90DA0E177306D3CE8";
+
+def get_stopID():
+	
+	'''Returns the Stop ID, first checking the command line, then the
+	for the presence of a .stopID file in the users home directory,
+	finally prompting for a stop ID'''
+	
+	home = os.path.expanduser("~")
+	id_file = home + '/' +'.stopid'
+	
+	if (len(sys.argv) > 1):
+		stopID = sys.argv[1]
+	
+	elif os.path.isfile(id_file):
+		with open(id_file, 'r') as f:
+			firstline = f.readline()
+			stopID = firstline.rstrip()
+	# TODO implement method to derive stop ID from text alias 
+	
+	else:
+		stopID = raw_input ('please enter a stop ID number ')
+	return stopID
+
+def get_arrivals_info (stop_id, app_id):
+	
+	'''Queries Trimet for xml derived from Stop ID
+	and returns it as a string'''
+	
+	arrivals_url = 'http://developer.trimet.org/ws/V1/arrivals/locIDs/' + stop_id + '/appID/' + app_id
+	try:
+		arrivals_data = urllib.urlopen(arrivals_url).read()
+	except IOError:
+		print 'Unable to make network connection!'
+		sys.exit(2)
+	if len(arrivals_data) == 0:
+		print 'Arrival info was blank!'
+		sys.exit(2)
+	return arrivals_data
+
+def conv_time (time_in):
+	'''converts from milliseconds, returns formatted local time'''
+	time_out = time.strftime("%I:%M %p",(time.localtime(time_in / 1000)))
+	return time_out
+
+# MAIN
+stopID = get_stopID()
+arrivals_info = get_arrivals_info(stopID,appID)
+
+arrivals_tree = ET.parse(StringIO.StringIO(arrivals_info))
+prefix = '{urn:trimet:arrivals}'
+fp= './/' + prefix
+
+# set human readable location, which direction bus is heading
+for node in arrivals_tree.findall(fp + 'location'):
+	if node.attrib['locid'] == stopID:
+		stop_location =  node.attrib['desc']
+		stop_direction =  node.attrib['dir']
+# print arrivals info
+try:
+	print 'The next arrivals due at ' + stop_location + ' (Stop ID ' + stopID+ ') are:'
+except NameError:
+	print 'Invalid Stop ID!'
+	sys.exit(3)
+isabus = None	
+for node in arrivals_tree.findall(fp + 'arrival'):
+	print node.attrib['fullSign'] + ', ' + stop_direction
+	if node.attrib['status'] == 'estimated':
+		print 'Estimated arrival time: ' + conv_time(int(node.attrib['estimated']))	
+		isabus = 'true' 
+	elif node.attrib['status'] == 'scheduled':
+		print 'Scheduled arrival time: ' + conv_time(int(node.attrib['scheduled']))
+		isabus = 'true'
+	elif node.attrib['status'] == 'delayed':
+		print "This vehicle is delayed, arrival time is uncertain"
+		isabus = 'true'
+	elif node.attrib['status'] == 'cancelled':
+		print 'This service has been cancelled'
+		isabus = 'true'
+
+	# warn if detour	
+	if node.attrib['detour'] == 'true':
+		print 'detours are in operation on this route'
+
+# report on route status/inclement weather effects
+for node in arrivals_tree.findall(fp + 'routeStatus'):
+	print 'Route ' + node.attrib['route']
+	if node.attrib['status'] == 'estimatedOnly':
+		print 'Arrivals are only being reported if they can be estimated in the next hour due to inclement weather conditions'
+	elif node.attrib['status'] == 'off':
+		print "No arrivals are being reported for this route because conditions such as snow and ice make prediction impossible. Hope you don't get too cold. Snowpocalypse strikes again!"
+	
+
+# found stop but not a bus
+if not isabus:
+	print 'Oops! There does not appear to be a bus scheduled at this stop any time soon, you might consider walking.'
