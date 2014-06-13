@@ -100,6 +100,22 @@ graph k5 {
 ### maclock
 Locks a machine running Mac OS X
 
+### pwdiffs
+Pairwise diffs of a stream of integers:
+
+```
+$ seq 10 | pwdiffs
+1
+1
+1
+1
+1
+1
+1
+1
+1
+```
+
 ### transpose
 Transpose a file delimited by whitespace
 

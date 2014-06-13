@@ -1,0 +1,6 @@
+#!/bin/bash
+# by tlehman
+# pairwise differences of stream of integers
+
+awk '{if (NR > 1) { print $1-a } a=$1}'
+
