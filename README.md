@@ -102,3 +102,7 @@ Locks a machine running Mac OS X
 
 ### transpose
 Transpose a file delimited by whitespace
+
+### vs
+Open in MacVim after fuzzy search with selecta
+
