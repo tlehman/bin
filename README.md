@@ -77,7 +77,7 @@ Quick histogram display, command line only (thanks to @bitly)
 
 
 ### kg
-Generate a complete graph in GraphViz format: 
+Generate a complete graph in GraphViz format:
 
 ```
 $ kg 5
@@ -116,9 +116,22 @@ $ seq 10 | pwdiffs
 1
 ```
 
+### snake_case
+Convert string of any form into snake_case_form
+
+Examples:
+
+```
+$ echo 'Economic Possibilities for
+ our Grandchildren' | snake_case
+economic_possibilities_for_our_grandchildren
+
+$ echo ObjectOrientedProgrammingForSickCats | snake_case
+object_oriented_programming_for_sick_cats
+```
+
 ### transpose
 Transpose a file delimited by whitespace
 
 ### vs
 Open in MacVim after fuzzy search with selecta
-

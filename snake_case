@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# snake_case by tlehman at 1404767579
+
+def get_input
+  input = nil
+
+  input = (ARGV.count == 1) ? ARGV.first : ARGV.join(' ')
+
+  if ARGV.empty?
+    input = STDIN.read
+  end
+
+  input.strip.gsub(/[,]/, '').gsub(/\n/, '')
+end
+
+def camel_case?(str)
+  /^([A-Z][a-z]*)+$/ =~ str
+end
+
+def split_camel_case(camel_case_string)
+  camel_case_string.split(/(?<=[a-z])(?=[A-Z])/).to_a
+end
+
+def split(str)
+  return split_camel_case(str) if camel_case?(str)
+
+  return [str] if str.gsub(/\s/,'') == str
+
+  str.split(/[\s_-]+/).flat_map { |s| split(s) }
+end
+
+def format_snake_case(str)
+  str.split(/(\s+|)/).select{|s|s.length>0}.join("_").downcase
+end
+
+def snakify(words)
+  words.map(&:downcase).join("_")
+end
+
+# (strip whitespace) => (detect form) => (split into parts) => (downcase & join)
+
+puts snakify(split(get_input))
