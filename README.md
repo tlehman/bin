@@ -9,6 +9,11 @@ Enables quick SQL queries against Rails apps using MySQL
 ### dbtt
 Shows current point in rails migration 'timeline'
 
+### desk
+Log state changes for adjustible-height desks
+
+TODO: Implement height control, so that changing the state of the desk and logging are both automated.
+
 ### dumbplot
 Plots two-dimensional dataset in GNUplot (thanks to @jeroenjanssens)
 

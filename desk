@@ -1,0 +1,40 @@
+#!/bin/bash
+# desk log (this should eventually control the standing desk)
+# by tlehman at 1405703473
+
+log_filename="/Users/tlehman/GDrive/Data/standing_desk_log.csv"
+
+function create_log_file_if_not_exists {
+  if [ ! -e $log_filename ]
+  then
+    echo "timestamp,state" > $log_filename
+  fi
+}
+
+function log_new_state {
+  create_log_file_if_not_exists
+
+  local state=$1
+  local timestamp=$(date --iso-8601=seconds)
+
+  echo "$timestamp,$state" >> $log_filename
+}
+
+function show_log {
+  create_log_file_if_not_exists
+
+  echo "timestamp                 state"
+  awk < $log_filename -F, 'NR > 1 {print $1"  "$2}'
+}
+
+if [ $1 = "up" ] || [ $1 = "down" ]
+then
+  log_new_state $1
+elif [ $1 = "log" ]
+then
+  show_log
+else
+  echo "Invalid command: $1"
+  exit 1
+fi
+
