@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+# ActiveRecord belongs_to graph generator (for rails apps)
+# by tlehman
+#
+# If no args are given, all models are mapped out.
+# Otherwise, the graph is restricted to the models given
+#   Example:
+#       $ argraph Author Post Comment
+#       digraph {
+#         Post -> Author
+#         Comment -> Post
+#       }
+
+class Model < Struct.new(:filename, :modelname, :parents); end
+
+def parents_of(filename)
+  lines = File.open(filename).readlines
+  parents = []
+  lines.grep(/belongs_to/).each do |line|
+    if /:class_name => .(?<other_model>([A-Z][a-z]*)+)./ =~ line
+      parents << other_model
+    else
+      /^\s*belongs_to :(?<other_model>[a-z_]+)/ =~ line
+      next unless other_model
+      parents << camel_case(other_model)
+    end
+  end
+  parents.uniq
+end
+
+def all_models
+  models = []
+  Dir["app/models/**/*.rb"].each do |filename|
+    file = File.open(filename)
+    contents = file.read
+    file.close
+
+    /class (?<modelname>([A-Z][a-z]*)+) < ActiveRecord::Base/ =~ contents
+    next unless modelname
+
+    models << Model.new(filename, modelname, parents_of(filename))
+  end
+
+  models
+end
+
+def camel_case(snake_case)
+  snake_case.split("_").map(&:capitalize).join
+end
+
+def print_as_digraph(models)
+  puts "digraph {"
+
+  models.each do |model|
+    model.parents.each do |parent|
+      puts " #{model.modelname} -> #{parent}"
+    end
+  end
+
+  puts "}"
+end
+
+def model_list_given?
+  return false if ARGV.empty?
+
+  ARGV.all? { |arg| arg.match(/([A-Z][a-z]+)/) }
+end
+
+def models_from_args
+  models = []
+  ARGV.each do |arg|
+    filename = `grep -r 'class #{arg} *<' app/models | awk -F: '{print $1}'`.strip
+    models << Model.new(filename, arg, parents_of(filename) & ARGV)
+  end
+  models
+end
+
+def main
+  models = model_list_given? ? models_from_args : all_models
+
+  print_as_digraph(models)
+end
+
+main

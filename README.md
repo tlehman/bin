@@ -1,5 +1,8 @@
 # my assorted utility scripts
 
+### argraph
+ActiveRecord graph: makes a GraphViz digraph that shows all the `belongs_to` associations in a rails app
+
 ### battery
 Returns percentage of battery left (Mac OS X)
 
