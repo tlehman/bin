@@ -3,6 +3,37 @@
 ### argraph
 ActiveRecord graph: makes a GraphViz digraph that shows all the `belongs_to` associations in a rails app
 
+##### Usage:
+
+Suppose you have the [discourse](https://github.com/discourse/discourse) rails app checked out, and you want to find out how some of it's models are interrelated:
+
+```
+$ cd discourse
+$ argraph Post Topic Category PostReply User UserAction UserHistory QuotedPost View UserAvatar
+digraph {
+ Post -> User
+ Post -> Topic
+ Topic -> Category
+ Topic -> User
+ Category -> Topic
+ Category -> User
+ PostReply -> Post
+ UserAction -> User
+ QuotedPost -> Post
+ QuotedPost -> QuotedPost
+ View -> User
+ UserAvatar -> User
+}
+$ !! | dot -Tpng > discourse.png
+```
+
+The output of `argraph` is a digraph in the [DOT language](http://www.graphviz.org/doc/info/lang.html), which can be rendered as an image using [GraphViz](http://www.graphviz.org/).
+
+*The nodes are ActiveRecord models, and the edges represent the 'belongs to' relation.*
+
+The above graph renders as:
+![discourse model graph](https://i.imgur.com/YQOyHUn.png)
+
 ### battery
 Returns percentage of battery left (Mac OS X)
 

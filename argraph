@@ -70,6 +70,10 @@ def models_from_args
   models = []
   ARGV.each do |arg|
     filename = `grep -r 'class #{arg} *<' app/models | awk -F: '{print $1}'`.strip
+    if filename == ""
+      STDERR.puts "Error: #{arg} is not a model" 
+      next
+    end
     models << Model.new(filename, arg, parents_of(filename) & ARGV)
   end
   models
