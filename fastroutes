@@ -1,0 +1,31 @@
+#!/bin/bash
+# fast routes for Ruby on Rails applications
+# by tlehman
+#
+
+if [ ! -f config/routes.rb ]; then
+  echo "Not in root of rails app"
+  exit 1
+fi
+
+cached_routes_filename="tmp/cached_routes_$(md5 -q config/routes.rb).txt"
+
+function cache_routes {
+  bundle exec rake routes > $cached_routes_filename
+}
+
+function clear_cache {
+  for old_file in $(ls tmp/cache_routes*.txt); do
+    rm $old_file
+  done
+}
+
+function show_cache {
+  cat $cached_routes_filename
+}
+
+if [ ! -f $cached_routes_filename ]; then
+  cache_routes
+fi
+
+show_cache

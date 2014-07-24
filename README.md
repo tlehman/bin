@@ -54,6 +54,13 @@ Plots two-dimensional dataset in GNUplot (thanks to @jeroenjanssens)
 ### edit
 Opens a file in a running Emacs process ;(server-start)
 
+### fastroutes
+`rake routes` can take a long time to run, I'm measuring about 7 seconds, that's enough time to want to leave and slack off. Unacceptable.
+
+fastroutes caches output of config/routes.rb for rails applications. To avoid going stale, the md5 hash of config/routes.rb is in the filename under tmp/.
+
+This means that you only ever run `rake routes` once after each time routes.rb has changed, then each subsequent time, you pull from "tmp/cached_routes_$(md5 config/routes.rb).txt"
+
 ### fmtnum
 Formats a number using commas:
 
