@@ -24,7 +24,7 @@ function show_log {
   create_log_file_if_not_exists
 
   echo "timestamp                 state"
-  awk < $log_filename -F, 'NR > 1 {print $1"  "$2}'
+  awk < $log_filename -F, 'NR > 1 {print $1"  "$2}' | tail -5
 }
 
 if [ $1 = "up" ] || [ $1 = "down" ]
