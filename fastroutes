@@ -24,8 +24,22 @@ function show_cache {
   cat $cached_routes_filename
 }
 
-if [ ! -f $cached_routes_filename ]; then
-  cache_routes
+function show_current_filename {
+  echo $cached_routes_filename
+}
+
+function main {
+  if [ ! -f $cached_routes_filename ]; then
+    cache_routes
+  fi
+
+  show_cache
+}
+
+if [[ "$1" == "-f" ]]
+then
+  show_current_filename 
+else
+  main
 fi
 
-show_cache
