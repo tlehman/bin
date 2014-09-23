@@ -41,6 +41,7 @@ function lines_of_javascript {
 }
 
 
-echo "$(lines_of_ruby | wc -l) lines of ruby"
-echo "$(lines_of_perl | wc -l) lines of perl"
-echo "$(lines_of_javascript | wc -l) lines of javascript"
+printf "$(git log --pretty="%ad" --date=short -n 1),"
+printf "$(lines_of_ruby | wc -l),"
+printf "$(lines_of_perl | wc -l),"
+printf "$(lines_of_javascript | wc -l)\n"
