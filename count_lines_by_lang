@@ -1,0 +1,46 @@
+#!/bin/bash
+# count lines of javascript, perl, or ruby in a git repository
+
+# lang          regex filext    comment
+# --------------------------------------------
+# perl          p[lm]           #
+# ruby          rb              #
+# javascript    js              // or /* ... */
+
+function files_perl {
+  git ls-files | grep '\.p[lm]$'
+}
+
+function files_javascript {
+  git ls-files | grep '\.js$'
+}
+
+function files_ruby {
+  git ls-files | grep '\.rb$'
+}
+
+function lines_of_perl {
+  for pl_file in $(files_perl)
+  do
+    grep -v '^ *\#' $pl_file
+  done
+}
+
+function lines_of_ruby {
+  for rb_file in $(files_ruby)
+  do
+    grep -v '^ *\#' $rb_file
+  done
+}
+
+function lines_of_javascript {
+  for js_file in $(files_javascript)
+  do
+    grep -v '^ *\/[\/\*]' $js_file
+  done
+}
+
+
+echo "$(lines_of_ruby | wc -l) lines of ruby"
+echo "$(lines_of_perl | wc -l) lines of perl"
+echo "$(lines_of_javascript | wc -l) lines of javascript"
