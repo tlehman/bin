@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# DuckDuckGo search wrapper for OS X
+
+query=$(echo $@ | ruby -ruri -e 'puts URI.escape(STDIN.read)')
+
+open /Applications/Google\ Chrome.app/ "https://duckduckgo.com/?q=$query"
