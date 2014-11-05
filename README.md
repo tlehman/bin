@@ -107,6 +107,9 @@ $ tld ke
 .ke Kenya
 ```
 
+### tfind
+(Mac OS X 10.9+ only) Find files under ~ that have a given tag.
+
 ### wrap
 Wraps each line in stdin with single quotes.
 
