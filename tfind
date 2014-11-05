@@ -1,0 +1,12 @@
+#!/bin/bash
+# by tlehman
+#
+# Similar to find(1), but it looks for files under ~ that have the 
+# tag given in the first argument.
+
+if [[ $(uname) -ne "Darwin" ]]; then
+  echo "Built for Mac OS X"
+  exit
+fi
+
+mdfind "kMDItemUserTags == '$1'" ~
