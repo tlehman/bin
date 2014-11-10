@@ -1,0 +1,10 @@
+#!/bin/bash
+# by tlehman
+#
+# read filenames from stdin, print out all todo messages
+
+while read line
+do
+  perl -ne '/(todo .*)$/i && print "\t$1\n"' < $line
+done
+

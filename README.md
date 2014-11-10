@@ -110,6 +110,9 @@ $ tld ke
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
+### todo
+Extract TODO messages from list of files on stdin
+
 ### wrap
 Wraps each line in stdin with single quotes.
 
