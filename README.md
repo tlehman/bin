@@ -99,6 +99,9 @@ $ hc 418
 418 I'm a teapot (RFC 2324)
 ```
 
+### tfind
+(Mac OS X 10.9+ only) Find files under ~ that have a given tag.
+
 ### tld
 ccTLD lookup:
 
@@ -107,11 +110,17 @@ $ tld ke
 .ke Kenya
 ```
 
-### tfind
-(Mac OS X 10.9+ only) Find files under ~ that have a given tag.
-
 ### todo
 Extract TODO messages from list of files on stdin
+
+```
+$ git ls-files | todo
+  TODO messages from list of files on stdin
+  todo messages
+  todo .*)$/i && print "\t$1\n"' < $line
+  TODO implement method to derive stop ID from text alias
+  
+```
 
 ### wrap
 Wraps each line in stdin with single quotes.
