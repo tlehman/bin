@@ -161,6 +161,9 @@ graph k5 {
 ### maclock
 Locks a machine running Mac OS X
 
+### paths
+Print out directories in `PATH`, one per line
+
 ### pwdiffs
 Pairwise diffs of a stream of integers:
 

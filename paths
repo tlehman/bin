@@ -1,0 +1,5 @@
+#!/bin/bash
+# by @un5t0ppab13
+#
+# print out paths
+echo -e ${PATH//:/\\n}
