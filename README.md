@@ -1,5 +1,26 @@
 # my assorted utility scripts
 
+### anagrams
+Generate all anagrams of a string:
+
+```
+$ anagrams doe
+doe
+deo
+ode
+oed
+edo
+eod
+```
+
+Really interesting uses of this script would be to combine it with a dictionary of words and only select those anagrams that are words.
+
+For example, Mac OS X has a dictionary `/usr/share/dict/words`
+
+So we could filter out only those anagrams that are in the dictionary like so:
+
+
+
 ### argraph
 ActiveRecord graph: makes a GraphViz digraph that shows all the `belongs_to` associations in a rails app
 

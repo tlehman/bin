@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# by tlehman
+#
+# all anagrams of the first argument
+
+
+def main
+  word = ARGV.first
+  word.split(//).permutation.each do |perm|
+    puts perm.join("")
+  end
+end
+
+def usage
+  STDERR.puts "Not enough arguments"
+  STDERR.puts "    Usage: anagram word"
+  exit
+end
+
+usage if ARGV.empty?
+
+main
