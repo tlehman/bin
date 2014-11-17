@@ -19,7 +19,12 @@ For example, Mac OS X has a dictionary `/usr/share/dict/words`
 
 So we could filter out only those anagrams that are in the dictionary like so:
 
-
+```
+$ anagrams doe | for perm in $(cat -); do grep -i "^$perm$" /usr/share/dict/words; done
+doe
+ode
+Edo
+```
 
 ### argraph
 ActiveRecord graph: makes a GraphViz digraph that shows all the `belongs_to` associations in a rails app
