@@ -39,6 +39,10 @@ function main {
 if [[ "$1" == "-f" ]]
 then
   show_current_filename 
+elif [[ "$1" == "-r" ]]
+then
+  rm $cached_routes_filename
+  cache_routes
 else
   main
 fi
