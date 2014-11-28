@@ -98,12 +98,14 @@ $ fmtnum 1000000000000000000
 ### gi
 After [analyzing my bash history](http://tobilehman.com/blog/2013/06/18/analyzing-bash-history-and-fixing-typos/) I found it would be worthwhile to write this script, so that commonly mis-typed commands like `gi ts` and `gi tb` work as intented.
 
-### git-grepblame
-Git grep and git blame, together at last.
-
 ### git-bq
 Git branch quick
 
+### git-grepblame
+Git grep and git blame, together at last.
+
+### git-log-display
+Step through git diffs, one commit at a time. Hit 'q' to step to previous commit, or 'Ctrl-C' to exit.
 
 ### hc
 HTTP Status Code lookup:

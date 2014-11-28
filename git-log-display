@@ -1,0 +1,40 @@
+#!/bin/sh
+# by tlehman
+#
+# git log-display
+# 
+#   Step back through all commits and see the diffs as you go.
+#
+# The command: 
+#     git log-display
+# will show the most recent commit, and you can go to the previous
+# commit 
+#
+# The command:
+#     git log-display FILENAME
+# will show the most recent commit that changed FILENAME, and you can look at 
+# the previous one by pressing 'q'
+#
+# To exit, press Ctrl-c and then 'q'
+
+function git_log_follow_file {
+  git log --pretty="%H" --follow $1
+} 
+
+function git_log_all {
+  git log --pretty="%H"
+}
+
+function step_through_commit_diffs {
+  for commit in $(cat -); do
+    git show $commit
+  done
+}
+
+if [ -a "$1" ]
+then
+  git_log_follow_file "$1" | step_through_commit_diffs
+else
+  git_log_all | step_through_commit_diffs
+fi
+
