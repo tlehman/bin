@@ -1,0 +1,38 @@
+#!/bin/bash
+# Find and log IP addresses
+# by tlehman
+#
+#   depends on: curl
+#
+
+IPADDR_LOGFILE=/home/tlehman/ipaddrs.log
+
+function get_current_date {
+    date +'%Y-%m-%d %H:%M:%S';
+}
+
+function get_current_ip {
+    curl -s ifconfig.me;
+}
+
+function last_logged_ip {
+    tail -1 $IPADDR_LOGFILE | awk -F'\t' '{print $2}';
+}
+
+function create_log_if_not_exists {
+    if [ ! -e $IPADDR_LOGFILE ]; then
+        get_record > $IPADDR_LOGFILE        
+    fi
+}
+
+function get_record {
+    printf "$(get_current_date)\t$(get_current_ip)\n"
+}
+
+create_log_if_not_exists
+
+get_record >> $IPADDR_LOGFILE
+
+printf "last logged IP: $(last_logged_ip)\n"
+
+

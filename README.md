@@ -127,6 +127,9 @@ $ hc 418
 418 I'm a teapot (RFC 2324)
 ```
 
+### ipaddrs
+Find external IP address and log with timestamp.
+
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
