@@ -211,6 +211,23 @@ $ seq 10 | pwdiffs
 1
 ```
 
+### screens
+Show ids of all detached screen sessions:
+
+Examples:
+
+```
+$ screen -ls
+There are screens on:
+  46784.ttys006.manifold  (Detached)
+  47401.ttys006.manifold  (Detached)
+2 Sockets in /var/folders/3_/j4m3c1x500773nrb6xxh8ggh0000gn/T/.screen.
+$ screens
+4678
+4740
+```
+
+
 ### snake_case
 Convert string of any form into snake_case_form
 

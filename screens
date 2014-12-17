@@ -1,0 +1,4 @@
+#!/bin/sh
+#
+# Show detached screen ids
+screen -ls | perl -ne '/^\s+(\d+)(\w+\.?)+\s+\(Detached\)/ && print "$1\n"'
