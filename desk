@@ -15,7 +15,7 @@ function log_new_state {
   create_log_file_if_not_exists
 
   local state=$1
-  local timestamp=$(date --iso-8601=seconds)
+  local timestamp=$(date +"%Y-%m-%dT%H:%M:%S-0800")
 
   echo "$timestamp,$state" >> $log_filename
 }
