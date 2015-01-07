@@ -23,7 +23,7 @@ function log_new_state {
 function show_log {
   create_log_file_if_not_exists
 
-  echo "timestamp                 state"
+  echo "timestamp            state"
   awk < $log_filename -F, 'NR > 1 {print $1"  "$2}' | tail -5
 }
 
