@@ -2,7 +2,7 @@
 # desk log (this should eventually control the standing desk)
 # by tlehman at 1405703473
 
-log_filename="/Users/tlehman/GDrive/Data/standing_desk_log.csv"
+log_filename="$HOME/sync/data/standing_desk_log.csv"
 
 function create_log_file_if_not_exists {
   if [ ! -e $log_filename ]
