@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Extract DateTimeOriginal (year) from EXIF metadata
+
+file=$1
+if [ ! -f $file ]; then
+  echo "$file not found"
+  exit 1
+fi
+
+exiftool -ExifIFD:DateTimeOriginal $file | perl -ne '/: (\d{4}):\d{2}:\d{2} / && print "$1\n"'

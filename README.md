@@ -80,6 +80,16 @@ Plots two-dimensional dataset in GNUplot (thanks to @jeroenjanssens)
 ### edit
 Opens a file in a running Emacs process ;(server-start)
 
+### exifyear
+Extract year from DateTimeOriginal in EXIF metadata
+
+Example:
+
+```
+$ exifyear img_204.jpg
+2011
+```
+
 ### fastroutes
 `rake routes` can take a long time to run, I'm measuring about 7 seconds, that's enough time to want to leave and slack off. Unacceptable.
 
