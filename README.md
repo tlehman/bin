@@ -1,5 +1,16 @@
 # my assorted utility scripts
 
+### addrcoords
+Take an address, get the GPS Coordinates from Google
+
+```
+$ addrcoords '123 Main St, Springfield, ST 01023'
+{
+  "lat": 64.121415,
+  "lng": -101.125193
+}
+```
+
 ### anagrams
 Generate all anagrams of a string:
 

@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+#
+# Address to GPS Coordinates
+
+require 'uri'
+require 'json'
+
+def raw_address
+  ARGV.first
+end
+
+def api_url(address)
+  encoded_address = URI.encode(address)
+  url = URI.parse("http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=#{encoded_address}")
+  body = JSON.parse(`curl -s '#{url}'`)
+  puts body['results'][0]['geometry']['location'].to_json
+end
+
+api_url(raw_address)
