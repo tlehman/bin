@@ -151,6 +151,9 @@ $ hc 418
 ### ipaddrs
 Find external IP address and log with timestamp.
 
+### Jenkins
+Show status of all Jenkins jobs at command line
+
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
