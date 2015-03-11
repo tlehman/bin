@@ -11,6 +11,8 @@ function jenkins_data_table() {
     curl --user $JENKINS_USERNAME:$JENKINS_PASSWORD https://$JENKINS_HOSTNAME/api/json 2> /dev/null | \
     ruby -rjson -e 'def colorize(text, color_code); "\e[#{color_code}m#{text}\e[0m"; end
     def colorize_blinking(text, color_code); "\e[#{color_code};5m#{text}\e[0m"; end
+    def aborted(text); colorize(text, 37); end
+    def aborted_anime(text); colorize_blinking(text, 37); end
     def red(text); colorize(text, 31); end
     def red_anime(text); colorize_blinking(text, 31); end
     def green(text); colorize(text, 32); end

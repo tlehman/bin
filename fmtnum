@@ -2,8 +2,11 @@
 # tlehman
 # 
 #   Usage:
-#    $ fmtnum 20100102030304
-#    20,100,102,030,304
+#     $ fmtnum "$(echo 7^7^2 | bc)"
+#     256,923,577,521,058,878,088,611,477,224,235,621,321,607
+#
+#     $ echo 7^7^2 | bc | fmtnum
+#     256,923,577,521,058,878,088,611,477,224,235,621,321,607
 
 DIGITS = %w{one two three four five six seven eight nine ten}
 
@@ -62,6 +65,7 @@ def format(n)
 end
 
 input = ARGV.first
+input = STDIN.read if input.nil?
 
 if number?(input)
   puts format(input)
