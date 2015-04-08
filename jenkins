@@ -14,6 +14,7 @@ function jenkins_data_table() {
     def aborted(text); colorize(text, 37); end
     def aborted_anime(text); colorize_blinking(text, 37); end
     def red(text); colorize(text, 31); end
+    def disabled(text); colorize(text, 2); end
     def red_anime(text); colorize_blinking(text, 31); end
     def green(text); colorize(text, 32); end
     def green_anime(text); colorize_blinking(text, 32); end
