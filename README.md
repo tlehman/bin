@@ -264,6 +264,22 @@ $ screens
 4740
 ```
 
+### shuffle
+Shuffle lines from standard in randomly:
+
+```
+tlehman@hausdorff:~/bin(master+)% ls | shuffle | head
+dbtt*
+wrap*
+websocketd*
+desk*
+edit*
+ipaddrs*
+anagrams*
+vs*
+decommonize*
+count_lines_by_lang*
+```
 
 ### snake_case
 Convert string of any form into snake_case_form
