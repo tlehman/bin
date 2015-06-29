@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# Days since last merge commit
+require 'date'
+
+def git_repo?
+  File.exists?(".git")
+end
+
+def exit_if_not_git_repo!
+  if !git_repo?
+    STDERR.puts("#{Dir.pwd} is not a git repostiory")
+    exit 1
+  end
+end
+
+exit_if_not_git_repo!
+
+def last_merge_commit
+  date_str, name = %x{git log --merges --pretty="%ad,%an" | head -1}.strip.split(",")
+  days = (Date.today - Date.parse(date_str)).to_i
+  "#{days} days since #{name} merged without rebasing"
+end
+
+puts last_merge_commit
+
+

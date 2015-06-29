@@ -74,6 +74,14 @@ The above graph renders as:
 ### battery
 Returns percentage of battery left (Mac OS X)
 
+### days_since
+Days since last merge commit.
+
+```
+$ days_since
+480 days since Tobi Lehman merged without rebasing
+```
+
 ### db
 Enables quick SQL queries against Rails apps using MySQL
 
