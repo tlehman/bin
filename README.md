@@ -235,7 +235,9 @@ graph k5 {
 ![K5](http://i.imgur.com/oc8JNeA.png)
 
 ### maclock
-Locks a machine running Mac OS X
+To prepare, run `clang -framework Foundation maclock.m -o maclock`
+
+Locks a machine running Mac OS X (works with Knock)
 
 ### paths
 Print out directories in `PATH`, one per line
