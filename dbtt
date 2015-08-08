@@ -1,10 +1,6 @@
 #!/bin/sh
 # dbtt: Database Time Traveler
 #  depends on: db
-# assumes current year is >= 2014 (this will be true for most* points in time)
-# *'most' in the sense that there have been about 13,800,000,000 years, but
-# there are an infinite number of years after 2014, so the proportion of years
-# less than 2014 to those that are greater or equal will tend to zero.
 
-version=$(db 'select version from schema_migrations where version > 2014 order by version DESC limit 1' | grep '\d')
+version=$(db 'select version from schema_migrations order by version DESC limit 1' | grep '\d')
 ls db/migrate | grep --colour -C 10 $version

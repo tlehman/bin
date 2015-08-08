@@ -7,10 +7,15 @@ require 'yaml'
 
 dbfile = 'config/database.yml'
 if File.exist?(dbfile)
-  dbdata = YAML::load(File.open(dbfile, 'r').read)['development']
+  config = YAML::load(File.open(dbfile, 'r').read)
+  dbdata = config['development']
   dbpasswd = (dbdata['password'] == nil) ? "" : " -p#{dbdata['password']} "
   argcmd = ARGV.join(' ')
-  dbcmd = "mysql -D#{dbdata['database']} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
+  dbcmd = if config['default']['adaptor'] == 'mysql'
+      "mysql -D#{dbdata['database']} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
+    else
+      "psql -A --pset footer -d #{dbdata['database']} -c '#{argcmd}'"
+    end
 
   system(dbcmd) unless ( argcmd =~ /(drop|delete)/i )
 else

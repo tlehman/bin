@@ -83,7 +83,7 @@ $ days_since
 ```
 
 ### db
-Enables quick SQL queries against Rails apps using MySQL
+Enables quick SQL queries against Rails apps using MySQL or PostgreSQL
 
 ### dbtt
 Shows current point in rails migration 'timeline'
