@@ -83,7 +83,7 @@ $ days_since
 ```
 
 ### db
-Enables quick SQL queries against Rails apps using MySQL or PostgreSQL
+Enables quick SQL queries against Rails apps using MySQL or PostgreSQL. Note: I used DECIMAL since `CAST(version AS DECIMAL)` works in both MySQL and PostgreSQL.
 
 ### dbtt
 Shows current point in rails migration 'timeline'
