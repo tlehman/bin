@@ -2,5 +2,5 @@
 # dbtt: Database Time Traveler
 #  depends on: db
 
-version=$(db 'select version from schema_migrations order by version DESC limit 1' | grep '\d')
+version=$(db 'select version from schema_migrations where version > 2014 order by version DESC limit 1' | grep '\d')
 ls db/migrate | grep --colour -C 10 $version

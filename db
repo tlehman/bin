@@ -11,7 +11,7 @@ if File.exist?(dbfile)
   dbdata = config['development']
   dbpasswd = (dbdata['password'] == nil) ? "" : " -p#{dbdata['password']} "
   argcmd = ARGV.join(' ')
-  dbcmd = if config['default']['adaptor'] == 'mysql'
+  dbcmd = if dbdata['adapter'] =~ /mysql/
       "mysql -D#{dbdata['database']} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
     else
       "psql -A --pset footer -d #{dbdata['database']} -c '#{argcmd}'"
