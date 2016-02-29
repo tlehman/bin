@@ -3,6 +3,8 @@
 #    PO Box 28228, Portland, OR, USA 97228
 #    paul at gatheringstorms.org
 
+#    Modified for use in bitbar in 2016 by Tobi Lehman
+
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +22,7 @@
 
 import os.path
 import sys
+import re
 import urllib
 import StringIO
 import xml.etree.ElementTree as ET
@@ -28,7 +31,6 @@ import time
 appID = "8D8D196B90DA0E177306D3CE8";
 
 def get_stopID():
-	
 	'''Returns the Stop ID, first checking the command line, then the
 	for the presence of a .stopID file in the users home directory,
 	finally prompting for a stop ID'''
@@ -85,29 +87,25 @@ for node in arrivals_tree.findall(fp + 'location'):
 		stop_direction =  node.attrib['dir']
 # print arrivals info
 try:
-	print 'The next arrivals due at ' + stop_location + ' (Stop ID ' + stopID+ ') are:'
+	if sys.stdout.isatty():
+		print 'The next arrivals due at ' + stop_location + ' (Stop ID ' + stopID+ ') are:'
 except NameError:
 	print 'Invalid Stop ID!'
 	sys.exit(3)
 isabus = None	
+number = re.compile("^ *(\d+)")
 for node in arrivals_tree.findall(fp + 'arrival'):
-	print node.attrib['fullSign'] + ', ' + stop_direction
-	if node.attrib['status'] == 'estimated':
-		print 'Estimated arrival time: ' + conv_time(int(node.attrib['estimated']))	
+	shortSign = node.attrib['shortSign'] + ' '
+	busNo = number.match(shortSign).group(1)
+	output = busNo + " "
+	status = node.attrib['status']
+	if status == 'estimated' or status == 'scheduled':
+		output += status + ' ' + conv_time(int(node.attrib[status]))
 		isabus = 'true' 
-	elif node.attrib['status'] == 'scheduled':
-		print 'Scheduled arrival time: ' + conv_time(int(node.attrib['scheduled']))
+	elif status == 'delayed' or status == 'cancelled':
+		output += status
 		isabus = 'true'
-	elif node.attrib['status'] == 'delayed':
-		print "This vehicle is delayed, arrival time is uncertain"
-		isabus = 'true'
-	elif node.attrib['status'] == 'cancelled':
-		print 'This service has been cancelled'
-		isabus = 'true'
-
-	# warn if detour	
-	if node.attrib['detour'] == 'true':
-		print 'detours are in operation on this route'
+	print output
 
 # report on route status/inclement weather effects
 for node in arrivals_tree.findall(fp + 'routeStatus'):
