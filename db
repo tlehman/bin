@@ -9,10 +9,11 @@ dbfile = 'config/database.yml'
 if File.exist?(dbfile)
   config = YAML::load(File.open(dbfile, 'r').read)
   dbdata = config['development']
+  dbhost = dbdata['host']
   dbpasswd = (dbdata['password'] == nil) ? "" : " -p#{dbdata['password']} "
   argcmd = ARGV.join(' ')
   dbcmd = if dbdata['adapter'] =~ /mysql/
-      "mysql -D#{dbdata['database']} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
+      "mysql -D#{dbdata['database']} -h#{dbhost} -u#{dbdata['username']} #{dbpasswd} -e '#{argcmd}'"
     else
       "psql -A --pset footer -d #{dbdata['database']} -c '#{argcmd}'"
     end
