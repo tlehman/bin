@@ -3,4 +3,9 @@
 #  depends on: db
 
 version=$(db 'select version from schema_migrations where cast(left(version, 4) as decimal) > 2014 order by version DESC limit 1' | grep '\d')
-ls db/migrate | grep --colour -C 10 $version
+
+if [ -t 1 ]; then
+	ls db/migrate | grep --colour -C 10 $version
+else
+	ls db/migrate | awk "/$version/ {printf $1\"- \"};{print $1}" | tail -10
+fi
