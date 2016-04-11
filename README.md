@@ -74,6 +74,9 @@ The above graph renders as:
 ### battery
 Returns percentage of battery left (Mac OS X)
 
+### circleci
+Show formatted recent builds from CircleCI
+
 ### days_since
 Days since last merge commit.
 

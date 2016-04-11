@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+# by tlehman
+# CircleCI recent builds
+#    depends on colorize gem
+require 'json'
+require 'colorize'
+COLOR = {'success' => :green,
+         'fixed' => :green,
+         'failed' => :red,
+         'not_run' => :white,
+         'no_tests' => :red}
+
+def recent_builds_json
+  `curl -s -H "Accept: application/json" "https://circleci.com/api/v1/recent-builds?circle-token=$CIRCLECI_TOKEN"`
+end
+
+def format_build(build)
+  color = COLOR[build['status']]
+  "".tap do |line| 
+    line << build['reponame'].ljust(20, " ")
+    line << build['lifecycle'].ljust(10, " ")
+    line << build['status'].ljust(10, " ")
+    line << build['author_name'].to_s.ljust(30, " ")
+  end.send(color)
+end
+
+def recent_builds
+  JSON.parse(recent_builds_json).each do |build| 
+    puts format_build(build)
+  end
+end
+
+recent_builds
