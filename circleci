@@ -15,11 +15,11 @@ def recent_builds_json
 end
 
 def format_build(build)
-  color = COLOR[build['status']]
+  color = COLOR[build['status']] || 'white'
   "".tap do |line| 
     line << build['reponame'].ljust(20, " ")
-    line << build['lifecycle'].ljust(10, " ")
-    line << build['status'].ljust(10, " ")
+    line << build['lifecycle'].ljust(15, " ")
+    line << build['status'].ljust(15, " ")
     line << build['author_name'].to_s.ljust(30, " ")
   end.send(color)
 end
