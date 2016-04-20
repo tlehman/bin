@@ -2,7 +2,12 @@
 # dbtt: Database Time Traveler
 #  depends on: db
 
-version=$(db 'select version from schema_migrations where cast(left(version, 4) as decimal) > 2014 order by version DESC limit 1' | grep '\d')
+
+if [ -f docker-compose.yml ]; then
+    version=$(docker-compose run web rake db:version | awk '{print $3}')
+else
+    version=$(db 'select version from schema_migrations where cast(left(version, 4) as decimal) > 2014 order by version DESC limit 1' | grep '\d')
+fi
 
 if [ -t 1 ]; then
 	ls db/migrate | grep --colour -C 10 $version
