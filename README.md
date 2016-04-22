@@ -172,6 +172,12 @@ Content-Length: 297
 Content-Type: text/html; charset=iso-8859-1
 ```
 
+### imgcat
+Display image at the command line using iTerm2 2.9 or higher
+
+![imgcat](https://www.iterm2.com/images/inline_image_sparky_demo.png)
+
+
 ### ipaddrs
 Find external IP address and log with timestamp.
 
