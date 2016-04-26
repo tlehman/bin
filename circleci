@@ -10,13 +10,17 @@ COLOR = {'success' => :green,
          'not_run' => :white,
          'no_tests' => :red}
 
+def missing_env?
+  ENV["CIRCLECI_TOKEN"].nil?
+end
+
 def recent_builds_json
   `curl -s -H "Accept: application/json" "https://circleci.com/api/v1/recent-builds?circle-token=$CIRCLECI_TOKEN"`
 end
 
 def format_build(build)
   color = COLOR[build['status']] || 'white'
-  "".tap do |line| 
+  "".tap do |line|
     line << build['reponame'].ljust(20, " ")
     line << build['lifecycle'].ljust(15, " ")
     line << build['status'].ljust(15, " ")
@@ -25,6 +29,11 @@ def format_build(build)
 end
 
 def recent_builds
+  if missing_env?
+    puts "Missing CIRCLECI_TOKEN environment variable" 
+    return
+  end
+
   JSON.parse(recent_builds_json).each do |build| 
     puts format_build(build)
   end
