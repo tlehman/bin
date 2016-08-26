@@ -319,3 +319,104 @@ Transpose a file delimited by whitespace
 
 ### vs
 Open in MacVim after fuzzy search with selecta
+
+### yrb
+Disassemble Ruby source into YARV instructions.
+
+MRI has a virtual machine called YARV (Yet Another Ruby VM), I made the `yrb` command 
+to quickly disassemble ruby source code into YARV.
+
+```
+tlehman@hausdorff:~% yrb 'B=2'
+== disasm: <RubyVM::InstructionSequence:<compiled>@<compiled>>==========
+0000 trace            1                                               (   1)
+0002 putobject        2
+0004 dup
+0005 putspecialobject 3
+0007 setconstant      :B
+0009 leave
+tlehman@hausdorff:~% yrb 'b=2'
+== disasm: <RubyVM::InstructionSequence:<compiled>@<compiled>>==========
+local table (size: 2, argc: 0 [opts: 0, rest: -1, post: 0, block: -1, kw: -1@-1, kwrest: -1])
+[ 2] b
+0000 trace            1                                               (   1)
+0002 putobject        2
+0004 dup
+0005 setlocal_OP__WC__0 2
+0007 leave
+tlehman@hausdorff:~% yrb 'b=(2.nil? ? :a : :b)'
+== disasm: <RubyVM::InstructionSequence:<compiled>@<compiled>>==========
+local table (size: 2, argc: 0 [opts: 0, rest: -1, post: 0, block: -1, kw: -1@-1, kwrest: -1])
+[ 2] b
+0000 trace            1                                               (   1)
+0002 putobject        2
+0004 opt_send_without_block <callinfo!mid:nil?, argc:0, ARGS_SIMPLE>
+0006 branchunless     12
+0008 putobject        :a
+0010 jump             14
+0012 putobject        :b
+0014 dup
+0015 setlocal_OP__WC__0 2
+0017 leave
+```
+
+And finally, using `yrb` to disassemble itself:
+
+
+```
+tlehman@hausdorff:~% yrb ~/bin/yrb
+== disasm: <RubyVM::InstructionSequence:<compiled>@<compiled>>==========
+local table (size: 3, argc: 0 [opts: 0, rest: -1, post: 0, block: -1, kw: -1@-1, kwrest: -1])
+[ 3] arg        [ 2] src
+0000 trace            1                                               (   4)
+0002 putself
+0003 putstring        "ripper"
+0005 opt_send_without_block <callinfo!mid:require, argc:1, FCALL|ARGS_SIMPLE>
+0007 pop
+0008 trace            1                                               (   6)
+0010 getinlinecache   17, <is:0>
+0013 getconstant      :ARGV
+0015 setinlinecache   <is:0>
+0017 opt_send_without_block <callinfo!mid:first, argc:0, ARGS_SIMPLE>
+0019 setlocal_OP__WC__0 3
+0021 trace            1                                               (   7)
+0023 getinlinecache   30, <is:1>
+0026 getconstant      :File
+0028 setinlinecache   <is:1>
+0030 getlocal_OP__WC__0 3
+0032 opt_send_without_block <callinfo!mid:exist?, argc:1, ARGS_SIMPLE>
+0034 branchunless     53
+0036 trace            1                                               (   9)
+0038 getinlinecache   45, <is:2>
+0041 getconstant      :File
+0043 setinlinecache   <is:2>
+0045 getlocal_OP__WC__0 3
+0047 opt_send_without_block <callinfo!mid:open, argc:1, ARGS_SIMPLE>
+0049 opt_send_without_block <callinfo!mid:read, argc:0, ARGS_SIMPLE>
+0051 jump             57                                              (   7)
+0053 trace            1                                               (  11)
+0055 getlocal_OP__WC__0 3
+0057 setlocal_OP__WC__0 2                                             (   7)
+0059 trace            1                                               (  14)
+0061 getinlinecache   68, <is:3>
+0064 getconstant      :Ripper
+0066 setinlinecache   <is:3>
+0068 getlocal_OP__WC__0 2
+0070 opt_send_without_block <callinfo!mid:sexp, argc:1, ARGS_SIMPLE>
+0072 opt_send_without_block <callinfo!mid:nil?, argc:0, ARGS_SIMPLE>
+0074 branchunless     79
+0076 putnil
+0077 leave
+0078 pop
+0079 trace            1                                               (  15)
+0081 putself
+0082 getinlinecache   91, <is:4>
+0085 getconstant      :RubyVM
+0087 getconstant      :InstructionSequence
+0089 setinlinecache   <is:4>
+0091 getlocal_OP__WC__0 2
+0093 opt_send_without_block <callinfo!mid:compile, argc:1, ARGS_SIMPLE>
+0095 opt_send_without_block <callinfo!mid:disasm, argc:0, ARGS_SIMPLE>
+0097 opt_send_without_block <callinfo!mid:puts, argc:1, FCALL|ARGS_SIMPLE>
+0099 leave
+```

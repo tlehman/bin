@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# Disassemble Ruby into YARV bytecode
+# by tlehman
+require 'ripper'
+
+arg = ARGV.first
+src = if File.exist?(arg)
+  # load ruby file
+  File.open(arg).read
+else
+  arg
+end
+
+unless Ripper.sexp(src).nil?
+  puts RubyVM::InstructionSequence.compile(src).disasm
+end
