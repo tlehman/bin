@@ -172,6 +172,16 @@ Content-Length: 297
 Content-Type: text/html; charset=iso-8859-1
 ```
 
+### imsg
+iMessage from the command line (macOS only)
+
+Usage:
+
+```
+usage: imsg foo.bar@icloud.com 'Are you going to be at the blurnsball game tonight?'
+  (or) imsg 5550129933 'Can you grab me some LED bulbs from Ace?'
+```
+
 ### imgcat
 Display image at the command line using iTerm2 2.9 or higher
 

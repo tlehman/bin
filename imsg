@@ -1,0 +1,34 @@
+#!/usr/bin/env osascript -l JavaScript
+
+// iMessage JXA wrapper by tlehman
+
+// NOTE: change the me variable to your iCloud email or phone number
+var me = "tobi.lehman@gmail.com";
+
+var app = Application("Messages");
+var service  = app.services["E:" + me];
+
+function run(argv) {
+    if(!app.running()) {
+        app.activate();
+    }
+    if(argv.length != 2) {
+        usage();
+        return;
+    }
+    var icloud_name = argv[0];
+    var message = argv[1];
+    send(icloud_name, message);
+}
+
+function usage() {
+    console.log("usage: imsg foo.bar@icloud.com 'Are you going to be at the blurnsball game tonight?'")
+    console.log("  (or) imsg 5550129933 'Can you grab me some LED bulbs from Ace?'")
+}
+
+// icloud_name is either a phone number or email address
+// message is a string
+function send(icloud_name, message) {
+    var buddy = service.buddies.byName(icloud_name);
+    app.send(message, {to: buddy});
+}
