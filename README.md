@@ -327,6 +327,20 @@ object_oriented_programming_for_sick_cats
 ### transpose
 Transpose a file delimited by whitespace
 
+### vpn
+Connect/Disconnect Viscosity VPN on macOS
+
+To connect:
+```
+$ vpn
+```
+
+To disconnect: 
+```
+$ vpn -d
+```
+
+
 ### vs
 Open in MacVim after fuzzy search with selecta
 

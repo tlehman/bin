@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function vpn_connect() {
+    osascript -e 'tell application "Viscosity" to Connect "tlehman"'
+}
+
+function vpn_disconnect() {
+    osascript -e 'tell application "Viscosity" to Disconnect "tlehman"'
+}
+
+if [ "$1" == "-d" ]; then
+    vpn_disconnect
+else
+    vpn_connect
+fi
