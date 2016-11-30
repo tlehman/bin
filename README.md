@@ -327,6 +327,21 @@ object_oriented_programming_for_sick_cats
 ### transpose
 Transpose a file delimited by whitespace
 
+### valid_vin
+Check that a Vehicle Identification Number (VIN) is valid.
+
+Examples: 
+
+```
+$ valid_vin
+Enter VIN Number: 1GCDM19X93B109951
+VIN is valid
+
+$ valid_vin
+Enter VIN Number: 1GCDM19X93B109952
+VIN is not valid
+```
+
 ### vpn
 Connect/Disconnect Viscosity VPN on macOS
 

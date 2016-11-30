@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+def transliterate(c)
+  '0123456789.ABCDEFGH..JKLMN.P.R..STUVWXYZ'.index(c) % 10;
+end
+
+def get_check_digit(vin)
+  map = '0123456789X'
+  weights = '8765432X098765432'
+  sum = 0
+  (0..16).each do |i|
+    sum += transliterate(vin[i]) * map.index(weights[i])
+  end
+  map[sum % 11]
+end
+
+def validate(vin)
+  return false if vin.length != 17
+  get_check_digit(vin) == vin[8]
+end
+
+printf "Enter VIN Number: "
+vin = gets.chomp
+
+if validate(vin)
+  puts "VIN is valid"
+else
+  puts "VIN is not valid"
+end
