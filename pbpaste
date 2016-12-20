@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$(uname)" = "Linux" ]; then
+  xclip -selection clipboard -o
+elif [ "$(uname)" = "Darwin" ]; then
+  /usr/bin/pbpaste
+fi
