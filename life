@@ -1,0 +1,118 @@
+#!/usr/bin/env ruby
+# Conway's Game of Life in Ruby
+
+# The rules are that a given point in the space is alive if 2 or 3 of
+# its neighbors are alive, otherwise it's dead.
+# Also, if exactly 3 neighbors are alive, a dead cell comes to life.
+# We define dead = false and alive = true.
+ALIVE = true
+DEAD = false
+class Object
+  def alive?; self == ::ALIVE; end
+  def dead?; self == ::DEAD; end
+end
+
+# Initialize the cells to alive 50% of the time
+alive_or_dead = -> { rand < 0.0 }
+
+# Set the SIZE of the space to be SIZE x SIZE grid
+SIZE = 20
+
+# Initialize a SIZE * SIZE grid of procs, then call them all to get
+# random initial values
+space = Array.new(SIZE*SIZE, alive_or_dead).map(&:call)
+
+# Given an index i in the space, we want the x,y coordinates. 
+#
+# We can imagine the 1-dimensional space array 
+# | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | by wrapping after each
+# of the 3rd entries, so it makes a square: 
+#
+#   | 0 | 1 | 2 |
+#   | 3 | 4 | 5 |
+#   | 6 | 7 | 8 |
+#
+# The mathematical operation to get this wrapping is the mod operator:
+#  3 mod 3 = 0
+#  6 mod 3 = 0, in ruby, mod is called %
+#
+# Since i = (i div d) * d + (i mod d), we can get the other coordinate
+# by doing integer division
+def i_to_xy(i); [i / SIZE, i % SIZE]; end
+def xy_to_i(x,y); x * SIZE + y; end
+
+# Glider Test
+space[xy_to_i(1,2)] = ALIVE
+space[xy_to_i(2,3)] = ALIVE
+space[xy_to_i(3,1)] = ALIVE
+space[xy_to_i(3,2)] = ALIVE
+space[xy_to_i(3,3)] = ALIVE
+
+system("clear")
+space.each_slice(SIZE).each { |row|
+  row.each { |cell| printf cell.dead? ? " " : "\u2588" }
+  printf "\n"
+}
+sleep(2)
+
+# Given a point (x,y) in the space, we want to know the neighbors of i,
+# so that we can calculate the new state.
+def neighbors(i)
+  x,y = i_to_xy(i)
+
+  north = [x,y-1]
+  south = [x,y+1]
+  east  = [x+1,y]
+  west  = [x-1,y]
+  nw    = [x-1,y-1]
+  ne    = [x+1,y-1]
+  sw    = [x-1,y+1]
+  se    = [x+1,y+1]
+
+  valid_neighbors = [north, south, east, west, nw, ne, sw, se].select { |(x,y)|
+    x>=0 && y>=0 && x<SIZE && y<SIZE
+  }
+
+  # convert 2-dimensional (x,y) coordinates back into 1-dimensional indexes
+  valid_neighbors.map { |(x,y)| xy_to_i(x,y) }
+end
+
+# So now that we have a space array where each cell has a state, and we can
+# find the neighbors, we need a way to get the number of neighors that are
+# in the alive state.
+alive_neighbor_count = ->(i, space) {
+  neighbors(i).select { |n| space[n].alive? }.count
+}
+
+# the main loop alternates between two arrays, in time step t, we update the
+# other array, and then swap them, and in t+1 we do the same, on and on
+space_a = space      # space_a is the space at the "current" time step
+space_b = space.dup  # space_b is the space at the "next" time step
+while true
+  # update space_b
+  space_a.each_with_index do |cell, i|
+    count = alive_neighbor_count.call(i, space_a)
+    x,y = i_to_xy(i)
+
+    if cell.alive? && (count < 2 || count > 3)
+      space_b[i] = DEAD
+    elsif cell.dead? && count == 3
+      space_b[i] = ALIVE
+    elsif cell.alive? && (count == 2 || count == 3)
+      space_b[i] = ALIVE
+    end
+  end
+
+  # swap
+  space_tmp = space_b
+  space_b = space_a
+  space_a = space_tmp
+
+  # draw
+  sleep(0.5)
+  system("clear")
+  space_a.each_slice(SIZE).each { |row|
+    row.each { |cell| printf cell.dead? ? " " : "\u2588" }
+    printf "\n"
+  }
+end
