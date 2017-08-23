@@ -74,6 +74,20 @@ The above graph renders as:
 ### battery
 Returns percentage of battery left (Mac OS X)
 
+### upcase, downcase and capitalize
+
+```
+$ echo hello | upcase
+HELLO
+
+$ echo HELLO | downcase
+hello
+
+$ echo hello | capitalize
+Hello
+
+```
+
 ### circleci
 Show formatted recent builds from CircleCI
 
