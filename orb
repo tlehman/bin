@@ -19,4 +19,14 @@ function set_color {
   curl -s $particle_uri -d access_token=$PARTICLE_API_KEY -d arg=$color > /dev/null
 }
 
-(set_color $1 &)
+function validate_color {
+  if [[ $1  == "off" || $1 == "black" || $1 == "white" || $1 == "red" || $1 == "blue" || $1 == "green" || $1 == "yellow" || $1 == "purple" || $1 == "cyan" || $1 == "orange" || $1 == "pink" || $1 == "rainbow" ]] ; then
+    (set_color $1 &)
+  else
+    printf "'$1' is not a valid color, must be one of: {off,black,white,red,blue,green,yellow,purple,cyan,orange,pink,rainbow}\n"
+    exit 1
+  fi
+}
+
+validate_color $1
+
