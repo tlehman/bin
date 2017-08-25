@@ -1,0 +1,22 @@
+#!/bin/sh
+# Set the DA Sphere (orb) to a color from this list:
+#  off
+#  black
+#  white
+#  red
+#  blue
+#  green
+#  yellow
+#  purple
+#  cyan
+#  orange
+#  pink
+#  rainbow
+
+function set_color {
+  local particle_uri=https://api.particle.io/v1/devices/$PARTICLE_PHOTON_ID/color 
+  local color=$1
+  curl -s $particle_uri -d access_token=$PARTICLE_API_KEY -d arg=$color > /dev/null
+}
+
+(set_color $1 &)

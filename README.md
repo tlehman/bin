@@ -272,6 +272,15 @@ To prepare, run `clang -framework Foundation maclock.m -o maclock`
 
 Locks a machine running Mac OS X (works with Knock)
 
+### orb
+Change color of Particle Photon Sphere (orb)
+
+```
+orb yellow
+```
+
+Changes the orb color to yellow
+
 ### paths
 Print out directories in `PATH`, one per line
 
