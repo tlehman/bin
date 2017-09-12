@@ -1,0 +1,5 @@
+#!/bin/sh
+
+read entry
+emacsclient -e "(devlog-insert \"$entry\")" 
+wc -l ~/sync/devlog.org
