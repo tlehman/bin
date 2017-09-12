@@ -111,7 +111,7 @@ Log state changes for adjustible-height desks
 TODO: Implement height control, so that changing the state of the desk and logging are both automated.
 
 ### devlog
-Log to my devlog using the running instance of emacs:
+Log to [my devlog](https://github.com/tlehman/etc/blob/master/spacemacs.el#L367-L404) using the running instance of emacs:
 
 ```
 $ devlog
