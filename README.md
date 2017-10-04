@@ -359,6 +359,11 @@ object_oriented_programming_for_sick_cats
 ### transpose
 Transpose a file delimited by whitespace
 
+### tz
+Find timezone and then format date correctly:
+
+![tz example](http://g.recordit.co/J9Y4IzO7bn.gif)
+
 ### valid_vin
 Check that a Vehicle Identification Number (VIN) is valid.
 

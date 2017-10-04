@@ -1,0 +1,17 @@
+#!/bin/sh
+# show ISO-ish date with given time zone
+#
+# type 'tz'
+# type time zone identifier and then hit <enter>
+
+function select_tz {
+  local tz=$(cd /usr/share/zoneinfo && find . -type f | sed 's/^\.\///g' | egrep '^[A-Z]' | selecta)
+  echo $tz
+}
+
+function format_date {
+  local tz=$(select_tz)
+  TZ=$tz date +"%Y-%h-%d %r (%Z)" | sed 's/:[0-9][0-9] / /g'
+}
+
+format_date
