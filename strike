@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+def strike(word)
+  word.split(//).map{|c| "#{c}\u0336"}.join("")
+end
+
+input = ARGV.first || STDIN.read
+puts strike(input.to_s.chomp)

@@ -342,6 +342,17 @@ decommonize*
 count_lines_by_lang*
 ```
 
+### strike
+
+Strikethrough text using unicode
+
+```
+$ strike hello
+h̶e̶l̶l̶o̶
+$ echo foo bar | strike
+f̶o̶o̶ ̶b̶a̶r̶
+```
+
 ### snake_case
 Convert string of any form into snake_case_form
 
