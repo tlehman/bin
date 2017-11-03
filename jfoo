@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "public class $1 {
+    public static void main(String args[]) {
+        String foo = \"\";
+        System.out.println(foo);
+    }
+}" > ~/tmp/$1.java
+
+emacsclient ~/tmp/$1.java &

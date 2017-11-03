@@ -217,6 +217,14 @@ Find external IP address and log with timestamp.
 ### Jenkins
 Show status of all Jenkins jobs at command line
 
+### jfoo
+Quickly generate a java program with a main function
+
+```
+jfoo AtomicIntegerExample
+# generates ~/tmp/AtomicIntegerExample.java
+```
+
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
