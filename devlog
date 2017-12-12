@@ -2,4 +2,4 @@
 
 read entry
 emacsclient -e "(devlog-insert \"$entry\")" 
-wc -l ~/sync/devlog.org
+wc -l ~/Dropbox/devlog.org
