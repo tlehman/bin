@@ -1,0 +1,15 @@
+#!/bin/sh
+# keep hitting a url until the status changes
+# tlehman
+
+url=$1
+
+while [ 1 ]; do
+  status=$(curl -s -I $url | head -1 | cut -c 10-)
+  oldstatus=$status
+  if [ "$oldstatus" != "$status" ]; then
+    notify "status of $url changed from $oldstatus to $status"
+  fi
+  sleep 5
+done
+

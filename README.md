@@ -211,6 +211,15 @@ Display image at the command line using iTerm2 2.9 or higher
 ![imgcat](https://www.iterm2.com/images/inline_image_sparky_demo.png)
 
 
+### isup
+Check if the HTTP status of a site changes
+
+example:
+```
+$ isup https://github.com &
+$ # keep doing work, and get a desktop notification when the HTTP status changes
+```
+
 ### ipaddrs
 Find external IP address and log with timestamp.
 
