@@ -293,11 +293,6 @@ graph k5 {
 
 ![K5](http://i.imgur.com/oc8JNeA.png)
 
-### maclock
-To prepare, run `clang -framework Foundation maclock.m -o maclock`
-
-Locks a machine running Mac OS X (works with Knock)
-
 ### orb
 Change color of Particle Photon Sphere (orb)
 
