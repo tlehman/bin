@@ -234,6 +234,16 @@ jfoo AtomicIntegerExample
 # generates ~/tmp/AtomicIntegerExample.java
 ```
 
+### now
+Get the current time in the correct format
+
+```
+$ now 
+2018-01-04 11:23:14
+$ now -z
+2018-01-04 11:23:22 (-0800)
+```
+
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
