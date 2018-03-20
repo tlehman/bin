@@ -1,3 +1,12 @@
 #!/bin/sh
 
-for n in $(seq 3 4); do cal -m $n; done
+function month {
+  date +%m
+}
+
+function next_month {
+  date -v+1m +%m
+}
+
+cal -m $(month)
+cal -m $(next_month)
