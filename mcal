@@ -1,0 +1,3 @@
+#!/bin/sh
+
+for n in $(seq 3 4); do cal -m $n; done
