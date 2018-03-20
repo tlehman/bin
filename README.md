@@ -237,7 +237,7 @@ jfoo AtomicIntegerExample
 ### mcal
 month calendar, displays this month and next:
 
-<div style="font-family: Courier; background-color: #f6f8fa">
+```
 $ mcal
 
      March 2018       
@@ -245,7 +245,7 @@ Su Mo Tu We Th Fr Sa
              1  2  3  
  4  5  6  7  8  9 10  
 11 12 13 14 15 16 17  
-18 19 <span style="background-color: yellow; padding: 1px">20</span> 21 22 23 24  
+18 19 20 21 22 23 24  
 25 26 27 28 29 30 31  
 
      April 2018       
@@ -255,8 +255,7 @@ Su Mo Tu We Th Fr Sa
 15 16 17 18 19 20 21  
 22 23 24 25 26 27 28  
 29 30                 
-
-</div>
+```
 
 ### now
 Get the current time in the correct format
