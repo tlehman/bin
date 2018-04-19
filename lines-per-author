@@ -1,0 +1,10 @@
+#!/bin/sh
+# count the number of lines attributed to each author
+
+function count_num_lines_per_author {
+  git blame --line-porcelain $1 | sed -n 's/^author //p' | sort | uniq -c | sort -rn
+}
+
+for f in $(git ls-files $1); do
+  count_num_lines_per_author $f
+done

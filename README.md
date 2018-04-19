@@ -234,6 +234,16 @@ jfoo AtomicIntegerExample
 # generates ~/tmp/AtomicIntegerExample.java
 ```
 
+### lines-per-author
+Count all lines per author in a git repo
+
+```
+$ lines-per-author
+  121 Tobi Lehman
+  19 Tobi Lehman
+  16 Tobi Lehman
+```
+
 ### mcal
 month calendar, displays this month and next:
 
