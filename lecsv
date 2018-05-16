@@ -1,0 +1,5 @@
+#!/bin/sh
+# le csv: less(1) for csv
+
+column -s, -t < /dev/stdin | less -#2 -N -S
+

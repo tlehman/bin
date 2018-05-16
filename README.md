@@ -226,6 +226,16 @@ Find external IP address and log with timestamp.
 ### Jenkins
 Show status of all Jenkins jobs at command line
 
+### lecsv
+Like `less`, but for csv:
+
+```
+$ curl -s https://people.sc.fsu.edu/~jburkardt/data/csv/example.csv | lecsv
+      1 TOK  UPDATE    DATE      SHOT   TIME       AUXHEAT  PHASE  STATE  PGASA      PGASZ      BGASA  BGASZ  ...
+      2 JET  20031201  20001006  53521  1.000E+01  NBIC     HSELM  TRANS  2.000E+00  1.000E+00  2      1      ...
+```
+
+
 ### lines-per-author
 Count all lines per author in a git repo
 
