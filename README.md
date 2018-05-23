@@ -162,6 +162,27 @@ Git grep and git blame, together at last.
 ### git-log-display
 Step through git diffs, one commit at a time. Hit 'q' to step to previous commit, or 'Ctrl-C' to exit.
 
+### headers
+Gets only the headers of the HTTP response
+
+```
+$ headers tblh.mn/42
+HTTP/1.1 301 Moved Permanently
+Date: Thu, 23 Apr 2015 22:09:38 GMT
+Server: Apache
+Location: https://tobilehman.com/tblhmn/42
+Content-Length: 297
+Content-Type: text/html; charset=iso-8859-1
+```
+
+### hexchr
+Convert ASCII/UTF-8 hexstrings to readble format:
+
+```
+$ hexchr 68656c6c6f20776f726c640a
+hello world
+```
+
 ### hc
 HTTP Status Code lookup:
 
@@ -182,17 +203,23 @@ $ hc 418
 418 I'm a teapot (RFC 2324)
 ```
 
-### headers
-Gets only the headers of the HTTP response
+### histogram
+Quick histogram display, command line only (thanks to @bitly)
+
+
+### hubcrawl
+Crawl forward or backward along a [hub](https://flightstats.github.io/hub) channel:
 
 ```
-$ headers tblh.mn/42
-HTTP/1.1 301 Moved Permanently
-Date: Thu, 23 Apr 2015 22:09:38 GMT
-Server: Apache
-Location: https://tobilehman.com/tblhmn/42
-Content-Length: 297
-Content-Type: text/html; charset=iso-8859-1
+$ hubcrawl http://hub/channel/item20 -p 3
+http://hub/channel/item19 
+http://hub/channel/item18
+http://hub/channel/item17
+
+$ hubcrawl http://hub/channel/item20 -n 3
+http://hub/channel/item21
+http://hub/channel/item22
+http://hub/channel/item23
 ```
 
 ### imsg
@@ -304,18 +331,6 @@ $ git ls-files | todo
 
 ### wrap
 Wraps each line in stdin with single quotes.
-
-### hexchr
-Convert ASCII/UTF-8 hexstrings to readble format:
-
-```
-$ hexchr 68656c6c6f20776f726c640a
-hello world
-```
-
-### histogram
-Quick histogram display, command line only (thanks to @bitly)
-
 
 ### kg
 Generate a complete graph in GraphViz format:
