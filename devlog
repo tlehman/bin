@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+FILENAME = "#{Dir.home}/Dropbox/devlog.org"
+
 def fail_loudly
   STDERR.puts "current_date is null"
   exit 1
@@ -8,7 +10,7 @@ end
 def main
   dates = {}
   current_date = nil
-  File.open("#{Dir.home}/Dropbox/devlog.org").each_line { |line|
+  File.open(FILENAME).each_line { |line|
     if /^\* (?<date>\d{4}-\d{2}-\d{2})/ =~ line
       current_date = date
     else
@@ -17,16 +19,34 @@ def main
       dates[current_date] << line
     end
   }
+  return dates
+end
+
+def output(dates)
+  file = File.open(FILENAME, 'w+')
   dates.keys.sort.reverse.each { |date|
-    puts "* #{date}"
+    file.puts "* #{date}"
     dates[date].each { |line|
-      puts line
+      file.puts line
     }
   }
 end
 
+def todays_date
+  year = Time.now.year
+  month = Time.now.month.to_s.rjust(2, "0")
+  day = Time.now.day.to_s.rjust(2, "0")
+  "#{year}-#{month}-#{day}"
+end
+
 begin
-  main
+  dates = main
+
+  dates[todays_date] ||= []
+  notes = ARGV.first
+  dates[todays_date].append(notes)
+
+  output(dates)
 rescue Errno::EPIPE
   exit 0
 end

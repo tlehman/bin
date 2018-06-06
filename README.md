@@ -111,7 +111,7 @@ Log state changes for adjustible-height desks
 TODO: Implement height control, so that changing the state of the desk and logging are both automated.
 
 ### devlog
-Sort [my devlog](https://github.com/tlehman/etc/blob/master/spacemacs.el#L367-L404) in reverse chronological order
+Insert into [my devlog](https://github.com/tlehman/etc/blob/master/spacemacs.el#L367-L404) in reverse chronological order, but chronological for day.
 
 ### dumbplot
 Plots two-dimensional dataset in GNUplot (thanks to @jeroenjanssens)
