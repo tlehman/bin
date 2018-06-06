@@ -43,7 +43,7 @@ begin
   dates = main
 
   dates[todays_date] ||= []
-  notes = ARGV.first
+  notes = "\n#{ARGV.first}"
   dates[todays_date].append(notes)
 
   output(dates)
