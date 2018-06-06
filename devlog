@@ -1,5 +1,32 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-read entry
-emacsclient -e "(devlog-insert \"$entry\")" 
-wc -l ~/Dropbox/devlog.org
+def fail_loudly
+  STDERR.puts "current_date is null"
+  exit 1
+end
+
+def main
+  dates = {}
+  current_date = nil
+  File.open("#{Dir.home}/Dropbox/devlog.org").each_line { |line|
+    if /^\* (?<date>\d{4}-\d{2}-\d{2})/ =~ line
+      current_date = date
+    else
+      fail_loudly if current_date == nil
+      dates[current_date] ||= []
+      dates[current_date] << line
+    end
+  }
+  dates.keys.sort.reverse.each { |date|
+    puts "* #{date}"
+    dates[date].each { |line|
+      puts line
+    }
+  }
+end
+
+begin
+  main
+rescue Errno::EPIPE
+  exit 0
+end

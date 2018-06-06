@@ -2,6 +2,8 @@
 
 if [ "$1" = "-z" ]; then
   date +"%Y-%m-%d %H:%M:%S (%z)"
+elif [ "$1" = "-f" ]; then
+  date +"%Y-%m-%d-%H-%M-%S"
 else 
   date +"%Y-%m-%d %H:%M:%S"
 fi
