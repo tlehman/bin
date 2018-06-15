@@ -44,7 +44,7 @@ begin
 
   dates[todays_date] ||= []
   notes = "\n#{ARGV.first}"
-  dates[todays_date].append(notes)
+  dates[todays_date].push(notes)
 
   output(dates)
 rescue Errno::EPIPE

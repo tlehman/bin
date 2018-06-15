@@ -37,7 +37,7 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except KeyboardInterrupt:
+    except urllib2.HTTPError, KeyboardInterrupt:
         try:
             sys.exit(0)
         except SystemExit:
