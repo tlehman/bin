@@ -303,6 +303,22 @@ $ now -z
 ### tfind
 (Mac OS X 10.9+ only) Find files under ~ that have a given tag.
 
+### timer
+it's a timer
+
+```
+$ timer 1:20
+1 minutes, 20 seconds
+9
+```
+
+Note, it overwrites the last output, so it doesn't fill a lot of vertical space. Can be used in a pipeline with `notify` to send future you 
+a message, for example:
+
+```
+$ timer 25:00 && notify "Pomodoro told me to tell you to take a break"
+```
+
 ### tld
 ccTLD lookup:
 

@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+/^(?<mins>\d{1,2}):?(?<secs>\d{2})?$/ =~ ARGV.first
+
+module Timer
+  def self.tick(mins, secs)
+    if mins 
+      printf "#{mins} minutes"
+      printf ", #{secs} seconds" if secs
+      printf "\n"
+      s = 0
+      max_secs = mins.to_i * 60 + secs.to_i
+      num_digits = Math.log10(max_secs).ceil
+      # curses stuff
+      lines = 1
+      cols = num_digits
+      while s < max_secs
+        puts s
+        sleep 1
+        print "\x1B[1A\x1B[2K" # move up and clear
+        s += 1
+      end
+    else
+      puts "input must be minutes with optional seconds: (e.g. 2:30)"
+      exit 1
+    end
+  end
+end
+
+Timer.tick(mins, secs)
+
+SIGS = ["KILL", "TERM"]
+
+SIGS.each do |sig|
+  Signal.trap(sig) do 
+    exit
+  end
+end
